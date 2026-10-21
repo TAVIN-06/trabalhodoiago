@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação Completa - Git e GitHub</title>
+    <style>
+        :root {
+            --bg-main: #0b0c0e;
+            --bg-card: rgba(20, 23, 31, 0.85);
+            --accent: #e63946;
+            --accent-glow: rgba(230, 57, 70, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #c5c9d1;
+            --border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animação de Fundo com Partículas Tecnológicas */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0b0c0e 0%, #151922 50%, #1f1319 100%);
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--accent);
+            animation: floatUp 10s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) scale(0.5);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        .presentation-container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 20px;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .slide {
+            display: none;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease-in-out;
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-top: 15px;
+            margin-bottom: 8px;
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        p, li {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: var(--text-main);
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.4);
+            color: #ff6b6b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: rgba(230, 57, 70, 0.2);
+            color: var(--text-main);
+        }
+
+        .img-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            padding: 5px;
+        }
+
+        .img-container a {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 5px;
+            text-decoration: none;
+        }
+
+        .img-container a:hover {
+            text-decoration: underline;
+        }
+
+        .final-slide {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .final-slide h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .final-slide p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background: rgba(11, 12, 14, 0.95);
+            border-top: 1px solid var(--border-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            border-radius: 16px 16px 0 0;
+            z-index: 2;
+        }
+
+        .nav-btn {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 10px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .indicator {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fundo com partículas geradas via JavaScript -->
+    <div class="background-animation" id="backgroundAnimation"></div>
+
+    <div class="presentation-container">
+
+        <!-- Página 0 -->
+        <div class="slide active">
+            <h1>Introdução do Trabalho</h1>
+            <p><strong>Integrantes:</strong> Otávio Tavares, Henzo Mozeli e Eliel Lelis</p>
+            <p><strong>Instituição:</strong> Senai</p>
+            <p><strong>Instrutor:</strong> Iago Teixeira</p>
+            <p><strong>Conteúdos gerais:</strong> Controle de versão com Git — repositório, commit, branch, fork e pull request —, os comandos básicos do dia a dia e o modelo de organização Git Flow.</p>
+        </div>
+
+        <!-- Página 1 -->
+        <div class="slide">
+            <h1>Página 1 – A diferença entre Git e GitHub</h1>
+            <p>Git é um sistema de controle de versão distribuído (DVCS) criado para ajudar os desenvolvedores a rastrear e gerenciar as alterações em seus códigos.</p>
+            <p>Quer você esteja corrigindo um bug, adicionando um novo recurso ou experimentando uma ideia arriscada, o Git facilita o salvamento de diferentes versões do seu projeto, para que você possa sempre voltar atrás se algo quebrar.</p>
+        </div>
+
+        <!-- Página 2 -->
+        <div class="slide">
+            <h1>Página 2 – Git vs GitHub (Continuação)</h1>
+            <h2>O papel do GitHub na colaboração</h2>
+            <p>Se o Git é o mecanismo de controle de versão, o GitHub é a garagem onde as equipes se reúnem para construir juntas. Ele se baseia nos recursos locais do Git, oferecendo uma plataforma baseada em nuvem para hospedar repositórios Git - transformando esforços individuais em progresso coletivo.</p>
+            <p>Ao armazenar seu código em um local centralizado, o GitHub permite que sua equipe acesse, revise e contribua com o mesmo projeto, independentemente de onde estejam. Ele adiciona uma camada rica de ferramentas de colaboração que ajudam na comunicação e na coordenação.</p>
+            <h2>Resumo da integração</h2>
+            <p>Git é a ferramenta subjacente que gerencia as versões de código localmente, enquanto o GitHub dá um passo adiante, oferecendo uma plataforma colaborativa para hospedar esses repositórios on-line. O Git lida com o rastreamento e o armazenamento de alterações, e o GitHub fornece a camada extra de colaboração, gerenciamento de projetos e recursos de comunidade. Essa integração ajuda as equipes a trabalhar com mais eficiência e a manter um histórico coerente do projeto.</p>
+        </div>
+
+        <!-- Página 3 -->
+        <div class="slide">
+            <h1>Página 3 – Tabela Comparativa Git vs GitHub</h1>
+            <table>
+                <tr>
+                    <th>Recurso</th>
+                    <th>Git</th>
+                    <th>GitHub</th>
+                </tr>
+                <tr>
+                    <td><strong>Natureza</strong></td>
+                    <td>Sistema de controle de versão</td>
+                    <td>Plataforma de hospedagem baseada em nuvem para repositórios Git</td>
+                </tr>
+                <tr>
+                    <td><strong>Localização</strong></td>
+                    <td>Funciona localmente em sua máquina</td>
+                    <td>Requer uma conexão com a Internet para acessar os repositórios</td>
+                </tr>
+                <tr>
+                    <td><strong>Função primária</strong></td>
+                    <td>Programa as alterações no código</td>
+                    <td>Fornece ferramentas de colaboração e gerenciamento de projetos</td>
+                </tr>
+                <tr>
+                    <td><strong>Interface</strong></td>
+                    <td>Ferramenta de linha de comando (com opções de GUI disponíveis)</td>
+                    <td>Interface gráfica baseada na Web</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Página 4 -->
+        <div class="slide">
+            <h1>Página 4 – O que é um Repositório e Repositório Local</h1>
+            <h2>O que é um repositório</h2>
+            <p>Um repositório (ou repo) é um lugar central onde todos os arquivos, códigos, documentos e recursos de um projeto ficam guardados. É tipo um centro que mantém tudo organizado e acessível para sua equipe.</p>
+            <h2>O repositório local</h2>
+            <p>O repositório local é o repositório que criamos em nosso computador, nele adicionamos os nossos arquivos e vamos registrando as mudanças com os commits. Esse repositório é chamado de local, porque ele existe apenas em nosso computador e não está conectado na internet.</p>
+        </div>
+
+        <!-- Página 5 -->
+        <div class="slide">
+            <h1>Página 5 – Repositório Remoto</h1>
+            <p>Um repositório remoto é um repositório Git armazenado em outro lugar, geralmente em um serviço como o GitHub.</p>
+            <p>Ele continua sendo um repositório Git, mas fica disponível pela rede, e não só na sua própria máquina.</p>
+        </div>
+
+        <!-- Página 6 -->
+        <div class="slide">
+            <h1>Página 6 – Relação entre o Computador e o Repositório Remoto</h1>
+            <p>Abaixo está o diagrama que ilustra a relação entre o computador de quem programa (repositório local) e o repositório remoto central, destacando os comandos de interação:</p>
+            <div class="img-container">
+                <img src="https://www.cs.swarthmore.edu/~adanner/help/git/git-repos.svg" alt="Diagrama de Relação entre Repositório Local e Remoto" onerror="this.onerror=null; this.src='https://i.imgur.com/83p1jV3.png';">
+                <a href="https://cursos.alura.com.br/forum/topico-duvida-repositorio-remoto-417316" target="_blank">Fonte da imagem: Alura Fórum</a>
+            </div>
+            <ul>
+                <li><strong>Clone:</strong> Baixa a estrutura inicial da nuvem para a máquina.</li>
+                <li><strong>Pull:</strong> Atualiza o repositório local com as modificações do remoto.</li>
+                <li><strong>Push:</strong> Envia as alterações locais para o repositório na nuvem.</li>
+            </ul>
+        </div>
+
+        <!-- Página 7 -->
+        <div class="slide">
+            <h1>Página 7 – O que é um Commit</h1>
+            <p>Um commit adiciona as alterações mais recentes do código-fonte para o repositório, tornando essas alterações parte da revisão principal do repositório.</p>
+            <p>É importante ressaltar que os commits nos sistemas de controle de versão são mantidos no repositório indefinidamente.</p>
+        </div>
+
+        <!-- Página 8 -->
+        <div class="slide">
+            <h1>Página 8 – O Histórico de Commits como Diário de Bordo</h1>
+            <h2>Porque o commit é como um diário de bordo?</h2>
+            <p>Um commit no GitHub pode ser comparado a uma espécie de diário de bordo de um projeto. Cada vez que fazemos uma alteração importante no código, podemos criar um commit para registrar o que foi feito.</p>
+            <p>Dessa forma, o histórico do projeto mostra como ele foi evoluindo ao longo do tempo.</p>
+        </div>
+
+        <!-- Página 9 -->
+        <div class="slide">
+            <h1>Página 9 – Exemplo Concreto de Problema que o Git Resolve</h1>
+            <p>Um exemplo concreto de problema que o Git resolve é quando duas pessoas estão trabalhando no mesmo projeto e acabam modificando o mesmo arquivo.</p>
+            <p>Sem o Git, seria necessário ficar enviando arquivos atualizados uns para os outros, o que poderia causar confusão e até fazer alguém perder alterações.</p>
+            <p>Com o Git, cada pessoa pode registrar suas alterações em commits e, depois, juntar as diferentes modificações. Além disso, se o código que funcionava ontem parar de funcionar hoje, é possível consultar o histórico de commits para descobrir o que foi alterado e voltar para uma versão anterior que estava funcionando.</p>
+        </div>
+
+        <!-- Página 10 -->
+        <div class="slide">
+            <h1>Página 10 – O arquivo .gitignore</h1>
+            <h2>O que é o gitignore:</h2>
+            <p>O arquivo .gitignore é um arquivo de texto que diz ao Git quais arquivos ou pastas ele deve ignorar em um projeto. Para criar um arquivo .gitignore local, crie um arquivo de texto e dê a ele o nome de <code>.gitignore</code> (lembre-se de incluir o . no começo). Em seguida, edite esse arquivo conforme necessário. Cada nova linha deve listar um arquivo ou pasta adicional que você quer que o Git ignore.</p>
+            <h2>Por que colocar a senha nele?</h2>
+            <p>Senhas, chaves de acesso e arquivos de configuração locais nunca devem entrar no repositório por três motivos principais: <strong>segurança, flexibilidade e integridade do ambiente</strong>.</p>
+        </div>
+
+        <!-- Página 11 -->
+        <div class="slide">
+            <h1>Página 11 – Comandos Básicos: git init e git clone</h1>
+            <p><strong>Início dos comandos básicos do Git:</strong></p>
+            <h2>a) git init</h2>
+            <p><strong>O que faz:</strong> Cria um novo repositório Git vazio na pasta atual.</p>
+            <p><strong>Quando se usa:</strong> Ao iniciar um novo projeto do zero na sua máquina.</p>
+            <p><strong>Exemplo:</strong> <code>git init</code></p>
+            <h2>b) git clone</h2>
+            <p><strong>O que faz:</strong> Baixa uma cópia completa de um repositório remoto existente para o computador.</p>
+            <p><strong>Quando se usa:</strong> Para clonar um projeto da nuvem (como do GitHub) e começar a trabalhar nele.</p>
+            <p><strong>Exemplo:</strong> <code>git clone https://github.com/usuario/projeto.git</code></p>
+        </div>
+
+        <!-- Página 12 -->
+        <div class="slide">
+            <h1>Página 12 – Comandos Básicos: git status, git add e git commit</h1>
+            <h2>a) git status</h2>
+            <p><strong>O que faz:</strong> Exibe o estado atual dos arquivos na working tree (quais foram modificados, quais estão prontos para commit e quais não são rastreados).</p>
+            <p><strong>Quando se usa:</strong> Sempre que quiser verificar quais alterações foram feitas antes de salvá-las.</p>
+            <p><strong>Exemplo:</strong> <code>git status</code></p>
+            <h2>b) git add</h2>
+            <p><strong>O que faz:</strong> Adiciona as alterações dos arquivos para a área de preparação (staging area).</p>
+            <p><strong>Quando se usa:</strong> Para selecionar quais arquivos modificados farão parte do próximo commit.</p>
+            <p><strong>Exemplo:</strong> <code>git add .</code></p>
+            <h2>c) git commit -m</h2>
+            <p><strong>O que faz:</strong> Salva permanentemente os arquivos preparados no histórico do repositório junto com uma mensagem descritiva.</p>
+            <p><strong>Quando se usa:</strong> Para registrar um marco ou alteração concluída no código.</p>
+            <p><strong>Exemplo:</strong> <code>git commit -m "feat: cria a tela de login"</code></p>
+        </div>
+
+        <!-- Página 13 -->
+        <div class="slide">
+            <h1>Página 13 – Comandos Básicos: git push e git pull</h1>
+            <h2>a) git push</h2>
+            <p><strong>O que faz:</strong> Envia os commits locais realizados na sua máquina para o repositório remoto na nuvem.</p>
+            <p><strong>Quando se usa:</strong> Para compartilhar suas alterações atualizadas com a equipe no GitHub.</p>
+            <p><strong>Exemplo:</strong> <code>git push origin main</code></p>
+            <h2>b) git pull</h2>
+            <p><strong>O que faz:</strong> Baixa e integra automaticamente as alterações mais recentes do repositório remoto para o seu repositório local.</p>
+            <p><strong>Quando se usa:</strong> Para atualizar o seu computador com o trabalho que outros colegas enviaram para a nuvem.</p>
+            <p><strong>Exemplo:</strong> <code>git pull origin main</code></p>
+            <p><em>Diferença:</em> O <code>push</code> envia o seu código para fora (da sua máquina para a nuvem), enquanto o <code>pull</code> traz o código de fora para dentro (da nuvem para a sua máquina).</p>
+        </div>
+
+        <!-- Página 14 -->
+        <div class="slide">
+            <h1>Página 14 – Comandos Básicos: git log e git diff</h1>
+            <h2>a) git log</h2>
+            <p><strong>O que faz:</strong> Lista todo o histórico de commits do projeto em ordem cronológica reversa.</p>
+            <p><strong>Quando se usa:</strong> Para ver quem fez o quê, quando e quais foram as mensagens de commit anteriores (use <code>git log --oneline</code> para ver de forma resumida).</p>
+            <p><strong>Exemplo:</strong> <code>git log --oneline</code></p>
+            <h2>b) git diff</h2>
+            <p><strong>O que faz:</strong> Mostra as diferenças exatas (linhas adicionadas e removidas) nos arquivos modificados que ainda não foram adicionados ao staging.</p>
+            <p><strong>Quando se usa:</strong> Para revisar detalhadamente o que mudou no código antes de rodar o comando <code>git add</code>.</p>
+            <p><strong>Exemplo:</strong> <code>git diff</code></p>
+        </div>
+
+        <!-- Página 15 -->
+        <div class="slide">
+            <h1>Página 15 – Comandos Básicos: git restore</h1>
+            <h2>a) git restore</h2>
+            <p><strong>O que faz:</strong> Descarta as alterações locais feitas em um arquivo, retornando-o para o último estado salvo no repositório.</p>
+            <p><strong>Quando se usa:</strong> Quando você fez testes que deram errado e quer desfazer as mudanças em um arquivo específico.</p>
+            <p><strong>Exemplo:</strong> <code>git restore index.html</code></p>
+            <p><strong>Por que material antigo ensina <code>git checkout -- arquivo</code>?</strong> Antigamente o comando <code>checkout</code> acumulava muitas funções (trocar de branch e restaurar arquivos), o que gerava confusão nos iniciantes. O Git moderno introduziu o <code>git restore</code> para separar e simplificar essa tarefa de descarte.</p>
+        </div>
+
+        <!-- Página 16 -->
+        <div class="slide">
+            <h1>Página 16 – Comandos Básicos: branch, switch e merge</h1>
+            <h2>a) git branch</h2>
+            <p><strong>O que faz:</strong> Cria, lista ou deleta ramificações (branches) no repositório.</p>
+            <p><strong>Quando se usa:</strong> Para ver quais branches existem ou criar uma nova ramificação isolada.</p>
+            <p><strong>Exemplo:</strong> <code>git branch nova-feature</code></p>
+            <h2>b) git switch</h2>
+            <p><strong>O que faz:</strong> Alterna o contexto de trabalho para uma branch específica (antigamente feito com <code>checkout</code>).</p>
+            <p><strong>Quando se usa:</strong> Quando você quer mudar de branch para trabalhar em outra parte do projeto.</p>
+            <p><strong>Exemplo:</strong> <code>git switch main</code></p>
+            <h2>c) git merge</h2>
+            <p><strong>O que faz:</strong> Junta o histórico e as alterações de uma branch secundária na branch em que você está atualmente.</p>
+            <p><strong>Quando se usa:</strong> Para unificar o recurso pronto de uma branch com o código principal (<code>main</code>).</p>
+            <p><strong>Exemplo:</strong> <code>git merge feature/login</code></p>
+        </div>
+
+        <!-- Página 17 -->
+        <div class="slide">
+            <h1>Página 17 – Tópico 3: Branches e Forks</h1>
+            <p>Explicação dos três mecanismos que permitem várias pessoas mexerem no mesmo código sem se atropelar:</p>
+            <h2>a) O que é um Branch?</h2>
+            <ul>
+                <li>É uma linha de desenvolvimento separada em um projeto.</li>
+                <li>Funciona como uma cópia segura do estado atual do código.</li>
+                <li>Permite testar ideias ou criar recursos sem risco de quebrar o sistema.</li>
+            </ul>
+            <p><strong>I. O que acontece com o “main” enquanto se trabalha em outra branch?</strong> Permanece intacto, estável e funcionando isoladamente.</p>
+            <p><strong>II. O que é um Merge?</strong> Processo de juntar o trabalho de duas ramificações diferentes aplicando no main.</p>
+            <h2>b) O que é um Fork?</h2>
+            <p>É uma duplicata exata do projeto original, mas sob o seu total controle e propriedade, funcionando de forma independente.</p>
+        </div>
+
+        <!-- Página 18 -->
+        <div class="slide">
+            <h1>Página 18 – Tópico 3: Pull Request e Caminho de Contribuição</h1>
+            <h2>c) O que é um “Pull Request”?</h2>
+            <p>Uma solicitação formal para incluir as alterações de código que você fez em uma branch ou fork dentro do repositório principal do projeto.</p>
+            <ul>
+                <li><strong>Code Review:</strong> Evita bugs em produção, mantém o padrão do projeto e compartilha informações com a equipe.</li>
+                <li><strong>Quem aprova:</strong> Engenheiros mais experientes, donos do repositório Open Source ou você mesmo em projetos solo.</li>
+            </ul>
+            <h2>d) Caminho completo de uma contribuição (passos):</h2>
+            <ol>
+                <li>Faça o Fork do repositório original.</li>
+                <li>Clone o seu Fork para o computador.</li>
+                <li>Altere o código e faça commits (<code>git add</code> e <code>git commit</code>).</li>
+                <li>Abra o Pull Request para o projeto original.</li>
+            </ol>
+        </div>
+
+        <!-- Página 19 -->
+        <div class="slide">
+            <h1>Página 19 – Tópico 4: Introdução ao Git Flow</h1>
+            <p>Git Flow não é um comando nem um programa: é um combinado de equipe sobre como usar as branches.</p>
+            <h2>a) Para que serve o Git Flow?</h2>
+            <p>Serve para padronizar e dar previsibilidade ao ciclo de vida do software. Resolve problemas recorrentes como código de produção quebrando constantemente, histórico de commits bagunçado, e desenvolvedores apagando o trabalho uns dos outros.</p>
+        </div>
+
+        <!-- Página 20 -->
+        <div class="slide">
+            <h1>Página 20 – As Branches do Git Flow</h1>
+            <h2>b) Papel de cada branch:</h2>
+            <ul>
+                <li><strong>I. “Main”:</strong> Branch de produção. Guarda o histórico oficial e reflete o código que está rodando com o cliente final; deve estar estável.</li>
+                <li><strong>II. “Develop”:</strong> Branch de integração. Linha de montagem onde o trabalho novo da equipe se junta para a próxima entrega.</li>
+                <li><strong>III. “Feature/”:</strong> Usada para desenvolver novas funcionalidades; nasce da develop e volta para ela via Pull Request.</li>
+                <li><strong>IV. “Release/”:</strong> Fase de preparação, testes finais e correção de pequenos bugs para lançamento de nova versão.</li>
+                <li><strong>V. “Hotfix/”:</strong> Linha de emergência médica para corrigir bugs críticos encontrados na main imediatamente.</li>
+            </ul>
+        </div>
+
+        <!-- Página 21 -->
+        <div class="slide">
+            <h1>Página 21 – Nomenclatura e Padronização de Branches</h1>
+            <h2>c) Nomenclatura de branch:</h2>
+            <p>Por que <code>feature/login-com-google</code> é melhor que <code>minha-branch-2</code>?</p>
+            <ul>
+                <li><strong>Informa o contexto e o escopo imediatamente:</strong> O prefixo <code>feature/</code> indica nova funcionalidade e o complemento explica o que está sendo construído.</li>
+                <li><strong>Remove a dependência pessoal:</strong> Evita nomes genéricos como "minha", permitindo que qualquer pessoa saiba o propósito da branch caso o desenvolvedor saia da equipe.</li>
+            </ul>
+        </div>
+
+        <!-- Página 22 -->
+        <div class="slide">
+            <h1>Página 22 – Quem Usa o Git Flow</h1>
+            <h2>d) Empresas e projetos reais que adotam Git Flow:</h2>
+            <p>Muitas corporações de setores tradicionais, serviços financeiros e consultorias de TI adotam o Gitflow para manter controle rigoroso de versões, isolamento de produtos e regulação financeira.</p>
+            <ul>
+                <li><strong>BANCO PAN</strong></li>
+                <li><strong>Serasa</strong></li>
+            </ul>
+        </div>
+
+        <!-- Página 23 - Nova Página Final -->
+        <div class="slide final-slide">
+            <h1>Conclusão & Agradecimentos</h1>
+            <p>Obrigado pela atenção de todos!</p>
+            <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 25px;">Otávio Tavares, Henzo Mozeli e Eliel Lelis — Senai</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>Anterior</button>
+        <div class="indicator" id="indicatorText">Página 0 de 23</div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Próxima</button>
+    </footer>
+
+    <script>
+        // Gerador dinâmico de partículas para um fundo vivo e visível
+        const bgContainer = document.getElementById('backgroundAnimation');
+        const particleCount = 25;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('span');
+            particle.classList.add('particle');
+            
+            // Tamanho aleatório entre 4px e 10px
+            const size = Math.random() * 6 + 4;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Posição horizontal aleatória
+            particle.style.left = `${Math.random() * 100}%`;
+            
+            // Atraso de animação e duração aleatórios para desincronizar
+            particle.style.animationDuration = `${Math.random() * 8 + 6}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            
+            bgContainer.appendChild(particle);
+        }
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function updatePresentation() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+
+            document.getElementById('indicatorText').innerText = `Página ${currentSlide} de ${totalSlides - 1}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            updatePresentation();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
